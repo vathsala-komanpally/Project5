@@ -1,0 +1,98 @@
+.App {
+  text-align: center;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.GroceryMarketPage{
+  width: 100vw;
+  height: 100vh;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 100px 1fr 1fr 50px;
+  gap: 10px;
+  padding: 10px;
+  box-sizing: border-box;
+}
+.header, .fixedSideBar, .displayItems,.footer{
+  padding: 10px;
+  border: 1px solid black;
+}
+
+.header{
+  grid-column-start: 1;
+  grid-column-end: 4;
+}
+
+.fixedSideBar{
+  grid-row-start: 2;
+  grid-row-end: 4;
+}
+
+.displayItems{
+  grid-row-start:2;
+  grid-row-end: 4;
+  grid-column-start: 2;
+  grid-column-end: 3;
+}
+
+.operationsofadmin{
+  float:left;
+width:65%;
+overflow:hidden;
+} .addItem, .updateItem, .deleteItem{
+  float:left;
+  width:30%;
+  overflow:hidden;
+  border: 10px solid rgb(204, 161, 80);
+}
+.DisplayItems{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  grid-auto-rows: minmax(100px, auto);
+}
+.navbar{
+  background:rgb(101, 168, 177);
+}
+
+.footer{
+    position: fixed;
+    top:auto;
+    bottom:0;
+    width:100%;
+    height:60px;   /* Height of the footer */
+    background:rgb(101, 168, 177);
+}
