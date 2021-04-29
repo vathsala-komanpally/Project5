@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { AppBar, Toolbar, Container } from '@material-ui/core';
-import Tab from '@material-ui/core/Tab';
 import { Cart } from "./Cart";
 import { makeStyles } from '@material-ui/core/styles';
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
@@ -9,6 +8,11 @@ import { List, ListItem, ListItemText } from "@material-ui/core";
 import { IconButton } from "@material-ui/core"
 import { Home } from "@material-ui/icons";
 import Badge from '@material-ui/core/Badge';
+import { HomePage } from '../pages/Home';
+import { About } from '../pages/About';
+import { Catalogue } from '../pages/Catalogue';
+import { Reciepes } from '../pages/Recipes';
+import { Contact } from '../pages/Contact';
 
 const useStyles = makeStyles((theme) => ({
     appBar: {
@@ -18,16 +22,16 @@ const useStyles = makeStyles((theme) => ({
     navbarDisplayFlex: {
         display: `flex`,
         justifyContent: `space-between`
-      },
-      navDisplayFlex: {
+    },
+    navDisplayFlex: {
         display: `flex`,
         justifyContent: `space-between`
-      },
-      linkText: {
+    },
+    linkText: {
         textDecoration: `none`,
         textTransform: `uppercase`,
         color: `white`
-      }
+    }
 }));
 
 const navLinks = [
@@ -36,20 +40,7 @@ const navLinks = [
     { path: '/catalogue', title: 'Catalogue' },
     { path: '/reciepes', title: 'Reciepes' },
     { path: '/contact', title: 'Contact' },
-]
-
-//remove props from here ..pass props
-function LinkTab() {
-    return (
-        <Tab
-            component="a"
-            onClick={(event) => {
-                event.preventDefault();
-            }}
-        //{...props}
-        />
-    );
-}
+];
 
 const NavBar = (props) => {
     const [cartItems, setCartItems] = useState([]);
@@ -65,32 +56,37 @@ const NavBar = (props) => {
         <Router>
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
-                <Container className={classes.navbarDisplayFlex}>
-                    <IconButton edge="start" color="inherit" aria-label="home">
-                        <Home fontSize="large" />
-                    </IconButton>
-                    <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>
-                        {navLinks.map(({ title, path }) => (
-                            <a href={path} key={title}>
-                                <ListItem button>
-                                    <ListItemText primary={title} />
-                                </ListItem>
-                            </a>
-                        ))}
-                        <Link to="/cart">
-                        <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }}
-                            badgeContent={props.cart.length} color="primary" onClick={handleCart}>
-                            <ShoppingCartRoundedIcon />Cart
-                     </Badge>
-                    </Link>
-                    </List>
+                    <Container className={classes.navbarDisplayFlex}>
+                        <IconButton edge="start" color="inherit" aria-label="home">
+                            <Home fontSize="large" />
+                        </IconButton>
+                        <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>
+                            {navLinks.map(({ title, path }) => (
+                                <a href={path} key={title}>
+                                    <ListItem button>
+                                        <ListItemText primary={title} />
+                                    </ListItem>
+                                </a>
+                            ))}
+                             <ListItem button>
+                            <Link to="/cart">
+                                <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }}
+                                    badgeContent={props.cart.length} color="primary" onClick={handleCart}>
+                                    <ShoppingCartRoundedIcon />Cart
+                                </Badge>
+                            </Link>
+                            </ListItem>
+                        </List>
                     </Container>
                 </Toolbar>
             </AppBar>
             <Switch>
-                <Route path="/cart">
-                    <Cart cart={props.cart} />
-                </Route>
+                <Route path="/cart"><Cart cart={props.cart} /></Route>
+                <Route path="/home" component={HomePage} ></Route>
+                <Route path="/about" component={About}></Route>
+                <Route path="/catalogue" component={Catalogue} ></Route>
+                <Route path="/reciepes" component={Reciepes}></Route>
+                <Route path="/contact" component={Contact}></Route>
             </Switch>
         </Router>
     )

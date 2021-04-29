@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Dialog from '@material-ui/core/Dialog';
 import { DialogActions, makeStyles } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -6,10 +6,10 @@ import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
-import { Typography, Grid } from '@material-ui/core';
+import { Typography, Grid, Button } from '@material-ui/core';
 import Divider from '@material-ui/core/Divider';
 import Card from '@material-ui/core/Card';
-
+import DeleteIcon from '@material-ui/icons/Delete';
 
 const useStyles = makeStyles(
   {
@@ -17,7 +17,7 @@ const useStyles = makeStyles(
       position: 'absolute',
       right: 0,
       top: 10,
-      width:"30%",
+      width: "30%",
       alignItems: "center",
     },
     media: {
@@ -25,6 +25,13 @@ const useStyles = makeStyles(
       maxWidth: '100%',
       textAlign: "center"
     },
+    button: {
+      margin: 2,
+      backgroundColor: "rgb(210, 86, 86)",
+    }, quantityBtns: {
+      width: "10%",
+      backgroundColor: "gray",
+    }
   }
 );
 const styles = (theme) => ({
@@ -35,11 +42,10 @@ const styles = (theme) => ({
   },
   closeButton: {
     position: 'fixed',
-    left: theme.spacing(103),
+    left: theme.spacing(148),
     top: theme.spacing(6),
     color: theme.palette.grey[500],
   },
-
 });
 
 const DialogTitle = withStyles(styles)((props) => {
@@ -65,32 +71,61 @@ const DialogContent = withStyles((theme) => ({
 
 const AddToCart = (props) => {
   const classes = useStyles();
-  console.log(props.cartItems,"Here testungb");
+  const [quantityOfItem, setQuantityOfItem] = useState(1);
+
+  const handlePlus = (item) => {
+    if (item.Quantity >= 0) {
+      item.Quantity = item.Quantity + 1;
+      setQuantityOfItem(item.Quantity);
+    }
+  }
+
+
+  const handleMinus = (item) => {
+    if (item.Quantity > 1) {
+      item.Quantity = item.Quantity - 1;
+      setQuantityOfItem(item.Quantity);
+    }
+  }
+
+  const handleDelete = (item) => {
+    const indxOfItemToDelete=props.cartItems.findIndex((itemToDelete=>itemToDelete.itemname === item.itemname));
+    props.cartItems.splice(indxOfItemToDelete, 1);
+  }
+
   return (
-    <Dialog classes={{ paper: classes.dialog}} onClose={props.handleClose} open={props.open}>
+    <Dialog classes={{ paper: classes.dialog }} onClose={props.handleClose} open={props.open}>
       <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
         Items Added To Cart
       </DialogTitle>
-
       <DialogActions>
-      <Grid container>
-      <Grid item>
-        {props.cartItems.map((item)=>(
-        <Card>
-          <img src={item.image} alt={item.itemname} />
-          <DialogContent>
-            <Typography gutterBottom variant="h5" component="h2">
-              {item.itemname}
+        <Grid container>
+          <Grid item>
+            {props.cartItems.map((item) => (
+              <Card style={{ margin: 5 }}  key={item._id}>
+                <img src={item.image} alt={item.itemname} />
+                <DialogContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {item.itemname}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary" component="p">
+                    Price: ${item.price}.00
             </Typography>
-            <Typography variant="body1" color="textSecondary" component="p">
-              Price: ${item.price}.00
-            </Typography>
-          </DialogContent>
-        </Card>
-        ))}
+                </DialogContent>
+                <Button className={classes.button} size="large">
+                  <Button size="small" onClick={() => handlePlus(item)}> + </Button>
+                  {item.Quantity}
+                  <Button size="small" onClick={() => handleMinus(item)}> - </Button>
+                </Button>
+                <Button size="large" className={classes.button} endIcon={<DeleteIcon />} onClick={() => handleDelete(item)}>
+                  Delete</Button>
+              </Card>
+            ))}
+          </Grid>
         </Grid>
-        </Grid>
-    </DialogActions>
+      </DialogActions>
+      <Button size="large" className={classes.button} >
+        CheckOut</Button>
     </Dialog>
   )
 }

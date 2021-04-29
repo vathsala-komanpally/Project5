@@ -1,13 +1,11 @@
 import React, {useState} from 'react';
-import Jumbotron from 'react-bootstrap/Jumbotron'
-import Container from 'react-bootstrap/Container';
 import Carousel from 'react-bootstrap/Carousel'
 import Image2 from '../images/image2.png';
 import Image1 from '../images/image2.jpeg';
 import Image3 from '../images/image6.jpeg';
 //import {ItemsDisplay} from "../userInterface/ItemsDisplay";
 
-const Home = () => {
+const HomePage = () => {
   const [index, setIndex] = useState(0);
 
   const handleSelect = (selectedIndex, e) => {
@@ -64,4 +62,4 @@ const Home = () => {
   )
 }
 
-export { Home };
+export { HomePage };

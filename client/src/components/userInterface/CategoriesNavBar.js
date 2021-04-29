@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { BrowserRouter as Router, Link } from "react-router-dom";
 import Drawer from '@material-ui/core/Drawer';
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
+import { List, ListItem, ListItemText } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
 import Toolbar from '@material-ui/core/Toolbar';
 
@@ -10,14 +9,15 @@ const drawerWidth = 250;
 const useStyles = makeStyles(theme => ({
   drawer: {
     width: drawerWidth,
-    flexShrink: 0,
+    display: `flex`,
   },
   drawerPaper: {
     width: drawerWidth,
+    top: theme.spacing(11),
   },
   itemList:{
     color:"brown",
-    fontWeight: "bold"
+    fontWeight: "bold",
   }
 }));
 const CategoriesNavBar = () => {
@@ -50,9 +50,11 @@ const CategoriesNavBar = () => {
         <div className={classes.drawerContainer}>
           <List className={classes.itemList}>
             {categories.map((categoryDetails) => (
-              <ListItem button key={categoryDetails._id} component={Link} to={`/shop/${categoryDetails._id}`} color="primary">
-                {categoryDetails.name} {'>'}
-              </ListItem>
+               <a href={`/shop/${categoryDetails._id}`} key={categoryDetails._id}>
+               <ListItem button>
+                   <ListItemText primary={categoryDetails.name}/> {'>'}
+               </ListItem>
+              </a>
             ))}
           </List>
         </div>

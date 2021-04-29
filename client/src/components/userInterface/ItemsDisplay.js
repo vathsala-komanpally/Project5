@@ -14,11 +14,12 @@ import { AddToCart } from './AddToCart';
 const useStyles = makeStyles((theme) => ({
   itemsContainer: {
     paddingTop: theme.spacing(3),
-    paddingLeft: theme.spacing(18),
+    //paddingLeft: theme.spacing(3),
+    display: `flex`,
+    justifyContent: `space-between`
   },
   itemTitle: {
     fontWeight: 800,
-    paddingBottom: theme.spacing(3)
   },
   card: {
     maxWidth: '100%',
@@ -29,8 +30,8 @@ const useStyles = makeStyles((theme) => ({
   },
   addToCart: {
     borderRadius: 30,
-    width: "50%",
-    backgroundColor: "gray",
+    width: "60%",
+    backgroundColor: "rgb(210, 86, 86)",
   }
 }));
 
@@ -41,7 +42,6 @@ const ItemsDisplay = (props) => {
   const [itemsList, setItemsList] = useState([]);
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
-  const [itemAddedToCart, setItemAddedToCart]=useState([]);
 
   useEffect(() => {
     fetch(`http://localhost:9000/api/groceryItems/category/${params.id}`, {
@@ -59,8 +59,28 @@ const ItemsDisplay = (props) => {
 
 
   const handleAddToCartOnClick = (itemDetails) => {
+    // const repeated=itemAddedToCart.find(({itemname})=>itemname===itemDetails.itemname);
+    // if(repeated){
+    //   const idxOfRepeated=itemAddedToCart.findIndex((repeated=>repeated.itemname === itemDetails.itemname));
+    //   itemAddedToCart[idxOfRepeated].Quantity= repeated.Quantity+1;
+    //   setItemAddedToCart(itemAddedToCart);
+    // }else{
+    // itemDetails={...itemDetails, Quantity:1};
+    // setItemAddedToCart([...props.cart, itemDetails]);
+    // }
+    // props.setCart([...props.cart, itemDetails]);
+    
+    // setOpen(true);
+
+    const repeated=props.cart.find(({itemname})=>itemname===itemDetails.itemname);
+    if(repeated){
+      const idxOfRepeated=props.cart.findIndex((repeated=>repeated.itemname === itemDetails.itemname));
+      props.cart[idxOfRepeated].Quantity= repeated.Quantity+1;
+      props.setCart(props.cart);
+    }else{
+    itemDetails={...itemDetails, Quantity:1};
     props.setCart([...props.cart, itemDetails]);
-    setItemAddedToCart([...props.cart, itemDetails]);
+    }
     setOpen(true);
   }
 
@@ -69,15 +89,15 @@ const ItemsDisplay = (props) => {
   };
 
   return (
-    <Container maxWidth="lg" className={classes.itemsContainer}>
+    <Container maxWidth="lg" >
       <Typography variant="h4" className={classes.itemTitle}>
         ItemsList
       </Typography>
-      <Grid container spacing={3}>
+      <Grid container spacing={3} className={classes.itemsContainer}>
         {itemsList.map((itemDetails) => (
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={3} key={itemDetails._id}>
             <Card className={classes.card}>
-              <CardActionArea key={itemDetails._id}>
+              <CardActionArea>
                 <CardMedia className={classes.media}
                   image={itemDetails.image}
                 />
@@ -91,7 +111,7 @@ const ItemsDisplay = (props) => {
                   <Button className={classes.addToCart} endIcon={<ShoppingCart />} onClick={() => handleAddToCartOnClick(itemDetails)}>
                     Add to Cart
                   </Button>
-               <AddToCart handleClose={handleClose} open={open} cartItems={itemAddedToCart}/>
+               <AddToCart handleClose={handleClose} open={open} cartItems={props.cart} setCartItems={props.setCart}/>
                 </CardContent>
               </CardActionArea>
             </Card>

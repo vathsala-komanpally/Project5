@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React,{useState} from 'react'
 import Card from 'react-bootstrap/Card';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -7,6 +7,9 @@ import { CardMedia, Typography } from '@material-ui/core';
 import Grid from '@material-ui/core/Grid';
 import CardActionArea from '@material-ui/core/CardActionArea';
 import CardContent from '@material-ui/core/CardContent';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
     itemsContainer: {
@@ -27,24 +30,33 @@ const useStyles = makeStyles((theme) => ({
     addToCart:{
       borderRadius: 30,
       width: "50%",
-      backgroundColor: "gray",
+      backgroundColor: "rgb(210, 86, 86)",
     }
   }));
 
 const Cart = (props) => {
     const classes= useStyles();
+    const [quantityOfItem, setQuantityOfItem] = useState(1);
+    const [open, setOpen] = React.useState(true);
 
     const handlePlus=(cartItem)=>{
-        //cartItem
-       // setCart([...cart,cartItem]);
+      if (cartItem.Quantity >= 0) {
+        cartItem.Quantity = cartItem.Quantity + 1;
+        setQuantityOfItem(cartItem.Quantity);
+      }
     }
 
     const handleDelete=(cartItem)=>{
-        
+      const indxOfItemToDelete=props.cart.findIndex((itemToDelete=>itemToDelete.itemname === cartItem.itemname));
+      props.cart.splice(indxOfItemToDelete, 1);
+      setOpen(false);
     }
     
     const handleMinus=(cartItem)=>{
-        
+      if (cartItem.Quantity > 1) {
+        cartItem.Quantity = cartItem.Quantity - 1;
+        setQuantityOfItem(cartItem.Quantity);
+      }
     }
     return (
     <Container maxWidth="lg" className={classes.itemsContainer}>
@@ -53,9 +65,12 @@ const Cart = (props) => {
       </Typography>
       <Grid container spacing={3}>
       {props.cart.map((itemDetails) => ( 
-          <Grid item xs={12} sm={6} md={4}>
+          <Grid item xs={12} sm={6} md={4} key={itemDetails._id}>
+            <IconButton aria-label="close" onClick={()=>handleDelete(itemDetails)}>
+          <Divider orientation="vertical" flexItem /> <CloseIcon /> <Divider orientation="vertical" flexItem />
+        </IconButton>
             <Card className={classes.card}>
-              <CardActionArea key={itemDetails._id}>
+              <CardActionArea >
                 <CardMedia className={classes.media}
                   image={itemDetails.image}
                   />
@@ -64,14 +79,16 @@ const Cart = (props) => {
                     {itemDetails.itemname}
                   </Typography>
                   <Typography variant="body1" color="textSecondary" component="p">
-                    Price: ${itemDetails.price}.00
-                    Quantity:{itemDetails.noOfItems}
+                    Price: ${itemDetails.price}.00<br/>
+                    Quantity:{itemDetails.Quantity}
                   </Typography>
-                  <Button className={classes.addToCart}>
-                  <Button onClick={()=>{handlePlus(itemDetails)}}>+</Button>
-                  <Button onClick={()=>{handleDelete(itemDetails)}}>Delete</Button>
-                  <Button onClick={()=>{handleMinus(itemDetails)}}>-</Button>
-                  </Button>
+                  <Button className={classes.addToCart} size="large">
+                 
+                  <Button size="small" onClick={() => handlePlus(itemDetails)}> + </Button>
+                  {itemDetails.Quantity}
+                  <Button size="small" onClick={() => handleMinus(itemDetails)}> - </Button>
+                </Button>
+                
                 </CardContent>
               </CardActionArea>
             </Card>
