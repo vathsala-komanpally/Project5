@@ -43,12 +43,11 @@ const navLinks = [
 ];
 
 const NavBar = (props) => {
-    const [cartItems, setCartItems] = useState([]);
     const classes = useStyles();
     const history = useHistory();
 
+
     const handleCart = () => {
-        setCartItems(props.cart);
         history.replace("/");
     }
 
@@ -68,13 +67,13 @@ const NavBar = (props) => {
                                     </ListItem>
                                 </a>
                             ))}
-                             <ListItem button>
-                            <Link to="/cart">
-                                <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }}
-                                    badgeContent={props.cart.length} color="primary" onClick={handleCart}>
-                                    <ShoppingCartRoundedIcon />Cart
+                            <ListItem button>
+                                <Link to="/cart">
+                                    <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }}
+                                        badgeContent={props.cart.length} color="primary" onClick={handleCart}>
+                                        <ShoppingCartRoundedIcon />Cart
                                 </Badge>
-                            </Link>
+                                </Link>
                             </ListItem>
                         </List>
                     </Container>

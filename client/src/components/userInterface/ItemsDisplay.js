@@ -56,27 +56,14 @@ const ItemsDisplay = (props) => {
     });
   }, []);
 
-
-
   const handleAddToCartOnClick = (itemDetails) => {
-    // const repeated=itemAddedToCart.find(({itemname})=>itemname===itemDetails.itemname);
-    // if(repeated){
-    //   const idxOfRepeated=itemAddedToCart.findIndex((repeated=>repeated.itemname === itemDetails.itemname));
-    //   itemAddedToCart[idxOfRepeated].Quantity= repeated.Quantity+1;
-    //   setItemAddedToCart(itemAddedToCart);
-    // }else{
-    // itemDetails={...itemDetails, Quantity:1};
-    // setItemAddedToCart([...props.cart, itemDetails]);
-    // }
-    // props.setCart([...props.cart, itemDetails]);
-    
-    // setOpen(true);
-
     const repeated=props.cart.find(({itemname})=>itemname===itemDetails.itemname);
+    const newCart= [...props.cart];
     if(repeated){
       const idxOfRepeated=props.cart.findIndex((repeated=>repeated.itemname === itemDetails.itemname));
-      props.cart[idxOfRepeated].Quantity= repeated.Quantity+1;
-      props.setCart(props.cart);
+      //props.cart[idxOfRepeated].Quantity= repeated.Quantity+1;
+      newCart[idxOfRepeated].Quantity= repeated.Quantity+1;
+      props.setCart(newCart);
     }else{
     itemDetails={...itemDetails, Quantity:1};
     props.setCart([...props.cart, itemDetails]);

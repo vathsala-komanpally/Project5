@@ -93,6 +93,10 @@ const AddToCart = (props) => {
     props.cartItems.splice(indxOfItemToDelete, 1);
   }
 
+  const handleCheckOutClick = ()=>{
+    
+  }
+
   return (
     <Dialog classes={{ paper: classes.dialog }} onClose={props.handleClose} open={props.open}>
       <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
@@ -124,7 +128,7 @@ const AddToCart = (props) => {
           </Grid>
         </Grid>
       </DialogActions>
-      <Button size="large" className={classes.button} >
+      <Button size="large" className={classes.button} onClick={handleCheckOutClick}> 
         CheckOut</Button>
     </Dialog>
   )

@@ -9,6 +9,8 @@ import {ItemsDisplay} from './components/userInterface/ItemsDisplay';
 export const App = () => {
   const [cart, setCart] = useState([]);
 
+  console.log("this page refresh");
+  console.log("cart Items:",cart);
   return (
     <div className="App">
       <Router>

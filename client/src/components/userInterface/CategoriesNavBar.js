@@ -50,11 +50,13 @@ const CategoriesNavBar = () => {
         <div className={classes.drawerContainer}>
           <List className={classes.itemList}>
             {categories.map((categoryDetails) => (
-               <a href={`/shop/${categoryDetails._id}`} key={categoryDetails._id}>
+              <Link to={`/shop/${categoryDetails._id}`}>
+               {/* <a href={`/shop/${categoryDetails._id}`} key={categoryDetails._id}> */}
                <ListItem button>
                    <ListItemText primary={categoryDetails.name}/> {'>'}
                </ListItem>
-              </a>
+              {/* </a> */}
+              </Link>
             ))}
           </List>
         </div>
