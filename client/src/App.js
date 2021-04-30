@@ -5,7 +5,8 @@ import { OperationsOfAdmin } from "./components/admin/OperationsOfAdmin";
 import { NavBar } from './components/userInterface/NavBar';
 import { CategoriesNavBar } from './components/userInterface/CategoriesNavBar';
 import {ItemsDisplay} from './components/userInterface/ItemsDisplay';
-
+import {SignIn} from './components/user/SignIn';
+import {AdminLoginBtn} from "./components/admin/AdminLoginBtn";
 export const App = () => {
   const [cart, setCart] = useState([]);
 
@@ -14,11 +15,11 @@ export const App = () => {
   return (
     <div className="App">
       <Router>
-        <Link to="/admin">Please Click here to do:Admin Operations</Link>
-        <NavBar cart={cart} />
+      <AdminLoginBtn/>
+       <NavBar cart={cart} />
         <CategoriesNavBar/>
         <Switch>
-          <Route path="/admin" component={OperationsOfAdmin}></Route>
+          <Route path="/admin" component={AdminLoginBtn}></Route>
           <Route path="/shop/:id"><ItemsDisplay cart={cart} setCart={setCart}/></Route>
         </Switch>
       </Router>

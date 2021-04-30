@@ -1,4 +1,5 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState } from 'react';
+import { BrowserRouter as Router} from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,7 +15,7 @@ import { AddToCart } from './AddToCart';
 const useStyles = makeStyles((theme) => ({
   itemsContainer: {
     paddingTop: theme.spacing(3),
-    //paddingLeft: theme.spacing(3),
+    paddingLeft: theme.spacing(3),
     display: `flex`,
     justifyContent: `space-between`
   },
@@ -76,6 +77,7 @@ const ItemsDisplay = (props) => {
   };
 
   return (
+    <Router>
     <Container maxWidth="lg" >
       <Typography variant="h4" className={classes.itemTitle}>
         ItemsList
@@ -106,6 +108,7 @@ const ItemsDisplay = (props) => {
         ))}
       </Grid>
     </Container>
+    </Router>
   )
 }
 

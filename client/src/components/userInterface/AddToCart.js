@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { BrowserRouter as Router, Route, Link, Switch, useHistory } from "react-router-dom";
 import Dialog from '@material-ui/core/Dialog';
 import { DialogActions, makeStyles } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -93,11 +94,9 @@ const AddToCart = (props) => {
     props.cartItems.splice(indxOfItemToDelete, 1);
   }
 
-  const handleCheckOutClick = ()=>{
-    
-  }
 
   return (
+    <Router>
     <Dialog classes={{ paper: classes.dialog }} onClose={props.handleClose} open={props.open}>
       <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
         Items Added To Cart
@@ -128,9 +127,11 @@ const AddToCart = (props) => {
           </Grid>
         </Grid>
       </DialogActions>
-      <Button size="large" className={classes.button} onClick={handleCheckOutClick}> 
-        CheckOut</Button>
-    </Dialog>
+      
+        </Dialog>
+ 
+    
+    </Router>
   )
 }
 

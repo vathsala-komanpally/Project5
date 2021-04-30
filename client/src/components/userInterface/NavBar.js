@@ -14,6 +14,7 @@ import { Catalogue } from '../pages/Catalogue';
 import { Reciepes } from '../pages/Recipes';
 import { Contact } from '../pages/Contact';
 
+
 const useStyles = makeStyles((theme) => ({
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
@@ -75,6 +76,7 @@ const NavBar = (props) => {
                                 </Badge>
                                 </Link>
                             </ListItem>
+                          
                         </List>
                     </Container>
                 </Toolbar>

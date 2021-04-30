@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { BrowserRouter as Router, Link } from "react-router-dom";
+import { BrowserRouter as Router } from "react-router-dom";
 import Drawer from '@material-ui/core/Drawer';
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import { makeStyles } from '@material-ui/core/styles';
@@ -50,13 +50,13 @@ const CategoriesNavBar = () => {
         <div className={classes.drawerContainer}>
           <List className={classes.itemList}>
             {categories.map((categoryDetails) => (
-              <Link to={`/shop/${categoryDetails._id}`}>
-               {/* <a href={`/shop/${categoryDetails._id}`} key={categoryDetails._id}> */}
+              // <Link to={`/shop/${categoryDetails._id}`}>
+               <a href={`/shop/${categoryDetails._id}`} key={categoryDetails._id}> 
                <ListItem button>
                    <ListItemText primary={categoryDetails.name}/> {'>'}
                </ListItem>
-              {/* </a> */}
-              </Link>
+               </a> 
+              /* </Link> */
             ))}
           </List>
         </div>
