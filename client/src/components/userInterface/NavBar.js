@@ -1,18 +1,13 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { AppBar, Toolbar, Container } from '@material-ui/core';
 import { Cart } from "./Cart";
 import { makeStyles } from '@material-ui/core/styles';
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
-import { BrowserRouter as Router, Link, Switch, Route, useHistory } from "react-router-dom";
+import { Link, Switch, Route, useHistory } from "react-router-dom";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import { IconButton } from "@material-ui/core"
 import { Home } from "@material-ui/icons";
 import Badge from '@material-ui/core/Badge';
-import { HomePage } from '../pages/Home';
-import { About } from '../pages/About';
-import { Catalogue } from '../pages/Catalogue';
-import { Reciepes } from '../pages/Recipes';
-import { Contact } from '../pages/Contact';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -47,13 +42,12 @@ const NavBar = (props) => {
     const classes = useStyles();
     const history = useHistory();
 
-
     const handleCart = () => {
         history.replace("/");
     }
 
     return (
-        <Router>
+        <div>
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
                     <Container className={classes.navbarDisplayFlex}>
@@ -76,20 +70,15 @@ const NavBar = (props) => {
                                 </Badge>
                                 </Link>
                             </ListItem>
-                          
+
                         </List>
                     </Container>
                 </Toolbar>
             </AppBar>
             <Switch>
                 <Route path="/cart"><Cart cart={props.cart} /></Route>
-                <Route path="/home" component={HomePage} ></Route>
-                <Route path="/about" component={About}></Route>
-                <Route path="/catalogue" component={Catalogue} ></Route>
-                <Route path="/reciepes" component={Reciepes}></Route>
-                <Route path="/contact" component={Contact}></Route>
             </Switch>
-        </Router>
+        </div>
     )
 }
 

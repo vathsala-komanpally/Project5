@@ -1,8 +1,19 @@
 import React, { useState, useEffect } from 'react'
 import { ListOfCategories } from "./ListOfCategories";
 import { ListOfItems } from "./ListOfItems";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    }
+  }))
 
 const UpdateItem = () => {
+    const classes = useStyles();
     const [categories, setCategories] = useState([]);
     const [groceryItems, setGroceryItems] = useState([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState({ categoryId: '' });
@@ -120,7 +131,8 @@ const UpdateItem = () => {
 
 
     return (
-        <div className="updateItem">
+        <div className={classes.paper}>
+            <form>
             <h1>Update items</h1>
             <ListOfCategories categories={categories} handleClick={handleClickCategory} />
 
@@ -129,7 +141,7 @@ const UpdateItem = () => {
                 <input value={updateCategoryName} name="name" onChange={handleChangeUpdateCategoryName} placeholder="Enter a name of category" />
                 </label>
             </div>
-            <button type="submit" onClick={handleUpdateCategorySubmit} className="btn btn-primary">Update Category</button>
+            <button type="submit" onClick={handleUpdateCategorySubmit}>Update Category</button>
             <ListOfItems groceryItems={groceryItems} handleClick={handleClickItems} />
             <div className="itemDetails">
                 <div className="ItemName">
@@ -155,7 +167,8 @@ const UpdateItem = () => {
                 </div>
             </div>
 
-            <button type="submit" onClick={handleUpdateItemSubmit} className="btn btn-primary">Update Item</button>
+            <button type="submit" onClick={handleUpdateItemSubmit} >Update Item</button>
+           </form>
         </div>
 
     )

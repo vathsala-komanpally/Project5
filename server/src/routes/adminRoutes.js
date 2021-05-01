@@ -30,6 +30,9 @@ router.post("/login", (request, response) => {
     if (userData) {
       const checkHashPassword = bcrypt.compareSync(request.body.password, userData.password);
       if (checkHashPassword) {
+        request.session.user = {
+          id: userData._id,
+        }
         response.send("logged In");
       } else {
         response.status(401).send("wrong credentials for Password");

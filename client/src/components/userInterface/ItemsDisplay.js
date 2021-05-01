@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import { BrowserRouter as Router} from "react-router-dom";
 import { useParams } from 'react-router-dom';
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
@@ -55,7 +54,7 @@ const ItemsDisplay = (props) => {
     }).then((items) => {
       setItemsList(items);
     });
-  }, []);
+  }, [params.id]);
 
   const handleAddToCartOnClick = (itemDetails) => {
     const repeated=props.cart.find(({itemname})=>itemname===itemDetails.itemname);
@@ -77,7 +76,6 @@ const ItemsDisplay = (props) => {
   };
 
   return (
-    <Router>
     <Container maxWidth="lg" >
       <Typography variant="h4" className={classes.itemTitle}>
         ItemsList
@@ -108,7 +106,6 @@ const ItemsDisplay = (props) => {
         ))}
       </Grid>
     </Container>
-    </Router>
   )
 }
 

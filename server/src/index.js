@@ -1,6 +1,7 @@
 const express = require("express");
 const mongoose = require("mongoose");
 const cors = require("cors");
+const session =  require("express-session");
 
 // Import all routers
 //const fruitRouter = require("./routes/fruitRoutes");
@@ -16,6 +17,14 @@ mongoose.connect("mongodb://localhost:27017/GroceryStoreFullStack", {
 
 // Initialise app object
 const app = express();
+
+app.use(
+  session({
+    secret: "Random seceret",
+    resave: false,
+    saveUninitialized: false,
+  })
+);
 
 // This is the port your application will use
 const port = 9000;

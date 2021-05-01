@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { BrowserRouter as Router, Route, Link, Switch, useHistory } from "react-router-dom";
 import Dialog from '@material-ui/core/Dialog';
 import { DialogActions, makeStyles } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
@@ -90,13 +89,12 @@ const AddToCart = (props) => {
   }
 
   const handleDelete = (item) => {
-    const indxOfItemToDelete=props.cartItems.findIndex((itemToDelete=>itemToDelete.itemname === item.itemname));
+    const indxOfItemToDelete = props.cartItems.findIndex((itemToDelete => itemToDelete.itemname === item.itemname));
     props.cartItems.splice(indxOfItemToDelete, 1);
   }
 
 
   return (
-    <Router>
     <Dialog classes={{ paper: classes.dialog }} onClose={props.handleClose} open={props.open}>
       <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
         Items Added To Cart
@@ -105,15 +103,13 @@ const AddToCart = (props) => {
         <Grid container>
           <Grid item>
             {props.cartItems.map((item) => (
-              <Card style={{ margin: 5 }}  key={item._id}>
+              <Card style={{ margin: 5 }} key={item._id}>
                 <img src={item.image} alt={item.itemname} />
                 <DialogContent>
                   <Typography gutterBottom variant="h5" component="h2">
-                    {item.itemname}
-                  </Typography>
+                    {item.itemname} </Typography>
                   <Typography variant="body1" color="textSecondary" component="p">
-                    Price: ${item.price}.00
-            </Typography>
+                    Price: ${item.price}.00 </Typography>
                 </DialogContent>
                 <Button className={classes.button} size="large">
                   <Button size="small" onClick={() => handlePlus(item)}> + </Button>
@@ -127,11 +123,7 @@ const AddToCart = (props) => {
           </Grid>
         </Grid>
       </DialogActions>
-      
-        </Dialog>
- 
-    
-    </Router>
+    </Dialog>
   )
 }
 

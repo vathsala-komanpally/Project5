@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import Card from 'react-bootstrap/Card';
-import { BrowserRouter as Router, Route, Link, Switch, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import { makeStyles } from '@material-ui/core/styles';
 import Container from '@material-ui/core/Container';
@@ -11,7 +11,6 @@ import CardContent from '@material-ui/core/CardContent';
 import CloseIcon from '@material-ui/icons/Close';
 import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
-import {SignIn} from '../user/SignIn';
 
 const useStyles = makeStyles((theme) => ({
   itemsContainer: {
@@ -67,7 +66,6 @@ const Cart = (props) => {
   }
 
   return (
-    <Router>
       <Container maxWidth="lg" className={classes.itemsContainer}>
         <Typography variant="h4" className={classes.itemTitle}>
           Items added to the cart:
@@ -103,20 +101,12 @@ const Cart = (props) => {
               </Card>
             </Grid>
           ))}
-
           <Link to="/cart/checkout">
             <Button size="large" style={{ paddingLeft: 50 }} onClick={handleCheckOutClick}>
               CheckOut</Button>
           </Link>
-
         </Grid>
       </Container>
-
-      <Switch>
-        <Route path="/cart/checkout" component={SignIn}></Route>
-      </Switch>
-
-    </Router>
   )
 }
 

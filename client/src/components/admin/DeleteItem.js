@@ -1,8 +1,19 @@
 import React,{useEffect, useState} from 'react';
 import { ListOfCategories } from "./ListOfCategories";
 import { ListOfItems } from "./ListOfItems";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    }
+  }))
 
 const DeleteItem = () => {
+    const classes = useStyles();
     const [categories, setCategories] = useState([]);
     const [groceryItems, setGroceryItems] = useState([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState({ categoryId: '' });
@@ -75,7 +86,8 @@ const DeleteItem = () => {
         })
     }
     return (
-        <div className="deleteItem">
+        <div className={classes.paper}>
+             <form >
             <h1>Delete</h1>
             <ListOfCategories categories={categories} handleClick={handleClickCategory} />
 
@@ -87,6 +99,7 @@ const DeleteItem = () => {
             <div className="deleteItemName">
             <button type="submit" onClick={handleDeleteItemNameSubmit} >Delete Item</button>
             </div>
+            </form>
         </div>
     )
 }

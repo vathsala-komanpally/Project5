@@ -1,8 +1,19 @@
 import React from 'react';
 import { useEffect, useState } from 'react';
 import { ListOfCategories } from "./ListOfCategories";
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    paper: {
+      marginTop: theme.spacing(8),
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+    }
+  }))
 
 const AddItem = () => {
+    const classes = useStyles();
     const [categories, setCategories] = useState([]);
     const [categoryName, setCategoryName] = useState({ name: '' });
     const [selectedCategoryId, setSelectedCategoryId] = useState({ categoryId: '' });
@@ -13,7 +24,7 @@ const AddItem = () => {
         noOfItems: '',
         image: ''
     });
-
+   
 
     useEffect(() => {
         fetch('http://localhost:9000/api/groceryItems/category/all', {
@@ -72,7 +83,8 @@ const AddItem = () => {
     }
 
     return (
-        <div className="addItem">
+        <div className={classes.paper}>
+            <form>
             <h1>Add new category/items</h1>
             <div className="addCategoryName">
                 <h4>Add New Category:</h4>
@@ -109,6 +121,7 @@ const AddItem = () => {
             </div>
 
             <button type="submit" onClick={handleAddItemClick} className="btnAddItem">Add Item</button>
+            </form>
         </div>
     )
 }
