@@ -1,9 +1,20 @@
 import React from 'react';
 import Jumbotron from 'react-bootstrap/Jumbotron'
 import Container from 'react-bootstrap/Container';
+import { makeStyles } from '@material-ui/core/styles';
+
+const useStyles = makeStyles((theme) => ({
+    mainContent:{
+      paddingLeft: theme.spacing(34),
+      paddingTop: theme.spacing(1),
+    }
+  }));
+
 const About = () => {
+  const classes = useStyles();
   return (
-    <Jumbotron>
+    <Jumbotron
+      className={classes.mainContent}>
       <Container>
         <h1>About:</h1>
         <p>We’re dedicated to finding ways to help our customer’s money go further. 

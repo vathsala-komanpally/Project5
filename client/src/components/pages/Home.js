@@ -3,16 +3,24 @@ import Carousel from 'react-bootstrap/Carousel'
 import Image2 from '../images/image2.png';
 import Image1 from '../images/image2.jpeg';
 import Image3 from '../images/image6.jpeg';
+import { makeStyles } from '@material-ui/core/styles';
 
+const useStyles = makeStyles((theme) => ({
+    mainContent:{
+      paddingLeft: theme.spacing(34),
+      paddingTop: theme.spacing(1),
+    }
+  }));
 const HomePage = () => {
   const [index, setIndex] = useState(0);
+  const classes = useStyles();
 
   const handleSelect = (selectedIndex, e) => {
     setIndex(selectedIndex);
   };
   return (
-    <div>
-    <Carousel activeIndex={index} onSelect={handleSelect}>
+    <div className={classes.mainContent}>
+    <Carousel activeIndex={index} onSelect={handleSelect} >
       <Carousel.Item>
         <img
           className="d-block w-100"

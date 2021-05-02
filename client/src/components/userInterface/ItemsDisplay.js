@@ -7,8 +7,6 @@ import { AddToCart } from './AddToCart';
 
 const useStyles = makeStyles((theme) => ({
   itemsContainer: {
-    paddingTop: theme.spacing(3),
-    paddingLeft: theme.spacing(3),
     display: `flex`,
     justifyContent: `space-between`
   },

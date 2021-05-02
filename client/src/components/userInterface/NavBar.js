@@ -11,6 +11,9 @@ import Badge from '@material-ui/core/Badge';
 
 
 const useStyles = makeStyles((theme) => ({
+    root: {
+        display: 'flex',
+      },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
         backgroundColor: "brown"
@@ -47,7 +50,7 @@ const NavBar = (props) => {
     }
 
     return (
-        <div>
+        <div className={classes.root}>
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
                     <Container className={classes.navbarDisplayFlex}>
@@ -70,7 +73,6 @@ const NavBar = (props) => {
                                 </Badge>
                                 </Link>
                             </ListItem>
-
                         </List>
                     </Container>
                 </Toolbar>
