@@ -2,15 +2,30 @@ import React from 'react';
 import { useEffect, useState } from 'react';
 import { ListOfCategories } from "./ListOfCategories";
 import { makeStyles } from '@material-ui/core/styles';
+import {Typography, Grid, Paper, TextField, Button} from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     }
-  }))
+}))
+
+const validate = values => {
+    const errors = {};
+    if (!values.firstName) {
+      errors.firstName = 'Required';
+    }
+    if (!values.lastName) {
+      errors.lastName = 'Required';
+    }
+    if (!values.email) {
+      errors.email = 'Required';
+    }
+    return errors;
+  };
 
 const AddItem = () => {
     const classes = useStyles();
@@ -24,7 +39,7 @@ const AddItem = () => {
         noOfItems: '',
         image: ''
     });
-   
+
 
     useEffect(() => {
         fetch('http://localhost:9000/api/groceryItems/category/all', {
@@ -44,7 +59,7 @@ const AddItem = () => {
         setItems(items);
     }, [items]);
 
-    const handleAddCategoryNameSubmit = () => {
+    const handleCategorySubmit = () => {
         fetch('http://localhost:9000/api/groceryItems/category', {
             method: "POST",
             headers: {
@@ -69,7 +84,7 @@ const AddItem = () => {
         const newItemState = { ...items, [e.target.name]: e.target.value };
         setItems(newItemState);
     }
-    const handleAddItemClick = () => {
+    const handleItemSubmit = () => {
         const completeItemDetails = { ...items, ...selectedCategoryId };
         setGroceryItem(completeItemDetails);
         fetch('http://localhost:9000/api/groceryItems/new-item', {
@@ -84,45 +99,98 @@ const AddItem = () => {
 
     return (
         <div className={classes.paper}>
-            <form>
-            <h1>Add new category/items</h1>
-            <div className="addCategoryName">
-                <h4>Add New Category:</h4>
-                <label>Enter name of category:
-                <input name="name" onChange={(e) => { setCategoryName({ [e.target.name]: e.target.value }) }} className="newcategoryname" placeholder="Enter a name of category" />
-                </label><br />
-                <button type="submit" onClick={handleAddCategoryNameSubmit} className="btnnewcategoryname" >Add category</button> or
-            </div>
+            <Typography variant="h4" align="center" component="h1" gutterBottom>
+                Create </Typography>
+            <Typography variant="h5" align="center" component="h2" gutterBottom>
+                Create new category/ item </Typography>
 
-            <h4>Add New Items to the category:</h4>
+            <Paper style={{ padding: 16 }}>
+                <form onSubmit={handleCategorySubmit} noValidate>
+                    <Typography variant="h6" align="center" component="h3" gutterBottom>
+                        Create New Category </Typography>
+                    <Grid container alignItems="flex-start" spacing={2}>
+                        <Grid item xs={12}>
+                            <TextField
+                             id="standard-start-adornment"
+                                fullWidth
+                                required
+                                name="name"
+                                label="Enter Name Of Category:"
+                                onChange={(e) => { setCategoryName({ [e.target.name]: e.target.value }) }}
+                            />
+                        </Grid>
+                        <Grid item style={{ marginTop: 16 }}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                                 >
+                                Add category
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+                <form onSubmit={handleItemSubmit} noValidate>
+                    <Typography variant="h6" align="center" component="h3" gutterBottom>
+                    Create New Item </Typography>
+           
+            <Grid container alignItems="flex-start" spacing={2}>
+            <Grid item xs={12}>
             <ListOfCategories categories={categories} handleClick={handleClickCategory} />
-            <div className="itemDetails">
-                <div className="ItemName">
-                    <label>Name of item:
-                <input name="itemname" value={items.itemname} onChange={handleChange} placeholder="Enter a name of the item to add" />
-                    </label>
-                </div>
-
-                <div className="ItemPrice">
-                    <label >Price:
-                <input name="price" value={items.price} onChange={handleChange} placeholder="Enter a price of item" />
-                    </label>
-                </div>
-                <div className="no.OfItems">
-                    <label >Number Of Items:
-                <input name="noOfItems" value={items.noOfItems} onChange={handleChange} placeholder="Enter no. of items" />
-                    </label>
-                </div>
-                <div className="imageOfItem">
-                    <label >image Url:
-                <input name="image" value={items.image} onChange={handleChange} placeholder="Paste Url link here" />
-                    </label>
-                </div>
-            </div>
-
-            <button type="submit" onClick={handleAddItemClick} className="btnAddItem">Add Item</button>
-            </form>
-        </div>
+            </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                required
+                                name="itemname"
+                                label="Name Of Item:"
+                                value={items.itemname}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                required
+                                name="price"
+                                label="Price Of Item:"
+                                value={items.price}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                required
+                                name="noOfItems"
+                                label="Number Of Items:"
+                                value={items.noOfItems}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item xs={12}>
+                            <TextField
+                                fullWidth
+                                required
+                                name="image"
+                                label="image Url:"
+                                value={items.image}
+                                onChange={handleChange}
+                            />
+                        </Grid>
+                        <Grid item style={{ marginTop: 16 }}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                                >
+                                Add Item
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </Paper>
+        </div >
     )
 }
 

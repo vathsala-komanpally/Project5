@@ -97,11 +97,11 @@ const OperationsOfAdmin = () => {
           </GridList>
         </div>
       </Container>
-      <Switch>
+      {/* <Switch>
         <Route path="/admin/CreateItem"><AddItem /></Route>
         <Route path="/admin/UpdateItem"><UpdateItem /></Route>
         <Route path="/admin/DeleteItem"><DeleteItem /></Route>
-      </Switch>
+      </Switch> */}
     </div>
   )
 }

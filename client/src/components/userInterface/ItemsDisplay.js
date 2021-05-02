@@ -1,14 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import Button from '@material-ui/core/Button';
-import { makeStyles } from '@material-ui/core/styles';
 import ShoppingCart from '@material-ui/icons/ShoppingCart';
-import Container from '@material-ui/core/Container';
-import { CardMedia, Typography } from '@material-ui/core';
-import Grid from '@material-ui/core/Grid';
-import Card from '@material-ui/core/Card';
-import CardActionArea from '@material-ui/core/CardActionArea';
-import CardContent from '@material-ui/core/CardContent';
+import { makeStyles, Container, CardMedia, Typography, Button } from '@material-ui/core';
+import {Grid, Card, CardActionArea, CardContent} from '@material-ui/core';
 import { AddToCart } from './AddToCart';
 
 const useStyles = makeStyles((theme) => ({

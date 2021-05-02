@@ -1,29 +1,30 @@
-import React,{useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import { ListOfCategories } from "./ListOfCategories";
 import { ListOfItems } from "./ListOfItems";
 import { makeStyles } from '@material-ui/core/styles';
+import { Typography, Grid, Paper, Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
-      marginTop: theme.spacing(8),
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
+        marginTop: theme.spacing(8),
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
     }
-  }))
+}))
 
 const DeleteItem = () => {
     const classes = useStyles();
     const [categories, setCategories] = useState([]);
     const [groceryItems, setGroceryItems] = useState([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState({ categoryId: '' });
-    const [selectedItemId, setSelectedItemId] = useState({_id:''});
+    const [selectedItemId, setSelectedItemId] = useState({ _id: '' });
 
     useEffect(() => {
         GETDataOfCategories();
     }, []);
 
-    const GETDataOfCategories=()=>{
+    const GETDataOfCategories = () => {
         fetch('http://localhost:9000/api/groceryItems/category/all', {
             method: "GET",
             headers: {
@@ -38,8 +39,9 @@ const DeleteItem = () => {
     }
 
     const handleClickCategory = (categoryId) => {
-        if(categoryId==="0"){
-            return;}
+        if (categoryId === "0") {
+            return;
+        }
         const CategoryId = { categoryId: categoryId };
         setSelectedCategoryId(CategoryId);
         fetch(`http://localhost:9000/api/groceryItems/category/${categoryId}`, {
@@ -54,7 +56,7 @@ const DeleteItem = () => {
         });
     }
 
-    const handleDeleteCategoryNameSubmit=()=>{
+    const handleDeleteCategorySubmit = () => {
         fetch(`http://localhost:9000/api/groceryItems/delete-category/${selectedCategoryId.categoryId}`, {
             method: "DELETE",
             headers: {
@@ -65,9 +67,10 @@ const DeleteItem = () => {
         GETDataOfCategories();
     }
 
-    const handleClickItems=(itemName)=>{
-        if(itemName==="Select"){
-            return;}
+    const handleClickItems = (itemName) => {
+        if (itemName === "Select") {
+            return;
+        }
         const foundItemId = groceryItems.find((element) => {
             return element.itemname === itemName;
         });
@@ -76,7 +79,7 @@ const DeleteItem = () => {
         setSelectedItemId(ItemId);
     }
 
-    const handleDeleteItemNameSubmit=()=>{
+    const handleDeleteItemSubmit = () => {
         fetch(`http://localhost:9000/api/groceryItems/delete-item/${selectedItemId._id}`, {
             method: "DELETE",
             headers: {
@@ -87,19 +90,49 @@ const DeleteItem = () => {
     }
     return (
         <div className={classes.paper}>
-             <form >
-            <h1>Delete</h1>
-            <ListOfCategories categories={categories} handleClick={handleClickCategory} />
+            <Typography variant="h4" align="center" component="h1" gutterBottom>
+                Delete </Typography>
+            <Typography variant="h5" align="center" component="h2" gutterBottom>
+                Delete category / item </Typography>
 
-            <div className="deleteCategoryName">
-            <button type="submit" onClick={handleDeleteCategoryNameSubmit} >Delete Category</button> or
-            </div>
-            <ListOfItems groceryItems={groceryItems} handleClick={handleClickItems}/>
-
-            <div className="deleteItemName">
-            <button type="submit" onClick={handleDeleteItemNameSubmit} >Delete Item</button>
-            </div>
-            </form>
+            <Paper style={{ padding: 16 }}>
+                <form onSubmit={handleDeleteCategorySubmit} noValidate>
+                    <Typography variant="h6" align="center" component="h3" gutterBottom>
+                        Delete Category</Typography>
+                    <Grid container alignItems="flex-start" spacing={2}>
+                        <Grid item xs={12}>
+                            <ListOfCategories categories={categories} handleClick={handleClickCategory} />
+                        </Grid>
+                        <Grid item style={{ marginTop: 16 }}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                            >
+                                Delete Category
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form><br />
+                <form onSubmit={handleDeleteItemSubmit} noValidate>
+                    <Typography variant="h6" align="center" component="h3" gutterBottom>
+                        Delete Item</Typography>
+                    <Grid container alignItems="flex-start" spacing={2}>
+                        <Grid item xs={12}>
+                            <ListOfItems groceryItems={groceryItems} handleClick={handleClickItems} />
+                        </Grid>
+                        <Grid item style={{ marginTop: 16 }}>
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                type="submit"
+                            >
+                                Delete Item
+                            </Button>
+                        </Grid>
+                    </Grid>
+                </form>
+            </Paper>
         </div>
     )
 }

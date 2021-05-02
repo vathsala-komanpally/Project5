@@ -1,7 +1,6 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Link, Switch, Route } from "react-router-dom";
+import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { OperationsOfAdmin } from "./components/admin/OperationsOfAdmin";
 import { NavBar } from './components/userInterface/NavBar';
 import { CategoriesNavBar } from './components/userInterface/CategoriesNavBar';
 import { ItemsDisplay } from './components/userInterface/ItemsDisplay';
@@ -12,7 +11,9 @@ import { About } from './components/pages/About';
 import { Catalogue } from './components/pages/Catalogue';
 import { Reciepes } from './components/pages/Recipes';
 import { Contact } from './components/pages/Contact';
-import { Cart } from "./components/userInterface/Cart";
+import { AddItem } from "./components/admin/AddItem";
+import { UpdateItem } from "./components/admin/UpdateItem";
+import { DeleteItem } from "./components/admin/DeleteItem";
 
 export const App = () => {
   const [cart, setCart] = useState([]);
@@ -24,16 +25,19 @@ export const App = () => {
       <div className="App">
         <AdminLoginBtn />
         <NavBar cart={cart} />
-        <CategoriesNavBar cart={cart} setCart={setCart} />
+        <CategoriesNavBar />
         <Switch>
           <Route path="/shop/:id"><ItemsDisplay cart={cart} setCart={setCart} /></Route>
-          <Route path="/admin" component={AdminLoginBtn}></Route>
+          <Route exact path="/admin" component={AdminLoginBtn}></Route>
           <Route path="/home" component={HomePage} ></Route>
           <Route path="/about" component={About}></Route>
           <Route path="/catalogue" component={Catalogue} ></Route>
           <Route path="/reciepes" component={Reciepes}></Route>
           <Route path="/contact" component={Contact}></Route>
           <Route path="/cart/checkout" component={SignIn}></Route>
+          <Route path="/admin/CreateItem"><AddItem /></Route>
+        <Route path="/admin/UpdateItem"><UpdateItem /></Route>
+        <Route path="/admin/DeleteItem"><DeleteItem /></Route>
         </Switch>
       </div>
     </Router>
