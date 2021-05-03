@@ -89,8 +89,9 @@ const AddToCart = (props) => {
   }
 
   const handleDelete = (item) => {
-    const indxOfItemToDelete = props.cartItems.findIndex((itemToDelete => itemToDelete.itemname === item.itemname));
-    props.cartItems.splice(indxOfItemToDelete, 1);
+    const indxOfItemToDelete = props.cart.findIndex((itemToDelete => itemToDelete.itemname === item.itemname));
+    props.cart.splice(indxOfItemToDelete, 1);
+    props.setCart(props.cart);
   }
 
 
@@ -102,7 +103,7 @@ const AddToCart = (props) => {
       <DialogActions>
         <Grid container>
           <Grid item>
-            {props.cartItems.map((item) => (
+            {props.cart.map((item) => (
               <Card style={{ margin: 5 }} key={item._id}>
                 <img src={item.image} alt={item.itemname} />
                 <DialogContent>

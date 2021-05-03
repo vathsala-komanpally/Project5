@@ -1,9 +1,8 @@
 import React from 'react'
 import { AppBar, Toolbar, Container } from '@material-ui/core';
-import { Cart } from "./Cart";
 import { makeStyles } from '@material-ui/core/styles';
 import ShoppingCartRoundedIcon from '@material-ui/icons/ShoppingCartRounded';
-import { Link, Switch, Route, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { List, ListItem, ListItemText } from "@material-ui/core";
 import { IconButton } from "@material-ui/core"
 import { Home } from "@material-ui/icons";
@@ -41,37 +40,32 @@ const NavBar = (props) => {
     }
 
     return (
-        <div>
-            <AppBar position="static" className={classes.appBar}>
-                <Toolbar>
-                    <Container className={classes.navbarDisplayFlex}>
-                        <IconButton edge="start" color="inherit" aria-label="home">
-                            <Home fontSize="large" />
-                        </IconButton>
-                        <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>
-                            {navLinks.map(({ title, path }) => (
-                                <a href={path} key={title}>
-                                    <ListItem button>
-                                        <ListItemText primary={title} />
-                                    </ListItem>
-                                </a>
-                            ))}
-                            <ListItem button>
-                                <Link to="/cart">
-                                    <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }}
-                                        badgeContent={props.cart.length} color="primary" onClick={handleCart}>
-                                        <ShoppingCartRoundedIcon />Cart
+        <AppBar position="static" className={classes.appBar}>
+            <Toolbar>
+                <Container className={classes.navbarDisplayFlex}>
+                    <IconButton edge="start" color="inherit" aria-label="home">
+                        <Home fontSize="large" />
+                    </IconButton>
+                    <List component="nav" aria-labelledby="main navigation" className={classes.navDisplayFlex}>
+                        {navLinks.map(({ title, path }) => (
+                            <a href={path} key={title}>
+                                <ListItem button>
+                                    <ListItemText primary={title} />
+                                </ListItem>
+                            </a>
+                        ))}
+                        <ListItem button>
+                            <Link to="/cart">
+                                <Badge anchorOrigin={{ vertical: 'bottom', horizontal: 'left', }}
+                                    badgeContent={props.cart.length} color="primary" onClick={handleCart}>
+                                    <ShoppingCartRoundedIcon />Cart
                                 </Badge>
-                                </Link>
-                            </ListItem>
-                        </List>
-                    </Container>
-                </Toolbar>
-            </AppBar>
-            <Switch>
-                <Route path="/cart"><Cart cart={props.cart} /></Route>
-            </Switch>
-        </div>
+                            </Link>
+                        </ListItem>
+                    </List>
+                </Container>
+            </Toolbar>
+        </AppBar>
     )
 }
 

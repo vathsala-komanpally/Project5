@@ -1,13 +1,10 @@
 import React from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
-import { BrowserRouter as Router, Link, Route, Switch, useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
 import Avatar from '@material-ui/core/Avatar';
-import { AddItem } from "./AddItem";
-import { UpdateItem } from "./UpdateItem";
-import { DeleteItem } from "./DeleteItem";
 import { Container, Button } from '@material-ui/core';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import AdminLogo from '../images/adminLogo.png';
@@ -15,7 +12,6 @@ import CRUDLogo from '../images/crud.png';
 import CreateIcon from '../images/create.png';
 import ReadIcon from '../images/read.png';
 import UpdateIcon from '../images/update.png';
-import { CrudDisplay } from './CrudDisplay';
 import { GridList } from '@material-ui/core';
 import DeleteIcon from '../images/delete.png';
 

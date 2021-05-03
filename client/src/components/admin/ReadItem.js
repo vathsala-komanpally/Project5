@@ -1,8 +1,8 @@
-import React from 'react';
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react'
 import { ListOfCategories } from "./ListOfCategories";
+import { ListOfItems } from "./ListOfItems";
 import { makeStyles } from '@material-ui/core/styles';
-import {Typography, Grid, Paper, TextField, Button} from '@material-ui/core';
+import { Typography, Grid, Paper, TextField, Button } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
     paper: {
@@ -13,26 +13,13 @@ const useStyles = makeStyles((theme) => ({
     }
 }))
 
-const validate = values => {
-    const errors = {};
-    if (!values.firstName) {
-      errors.firstName = 'Required';
-    }
-    if (!values.lastName) {
-      errors.lastName = 'Required';
-    }
-    if (!values.email) {
-      errors.email = 'Required';
-    }
-    return errors;
-  };
-
-const AddItem = () => {
+const ReadItem = () => {
     const classes = useStyles();
     const [categories, setCategories] = useState([]);
-    const [categoryName, setCategoryName] = useState({ name: '' });
+    const [groceryItems, setGroceryItems] = useState([]);
     const [selectedCategoryId, setSelectedCategoryId] = useState({ categoryId: '' });
-    const [groceryItem, setGroceryItem] = useState({});
+    const [selectedItemId, setSelectedItemId] = useState({ _id: '' });
+    const [updateCategoryName, setUpdateCategoryName] = useState('');
     const [items, setItems] = useState({
         itemname: '',
         price: '',
@@ -40,8 +27,12 @@ const AddItem = () => {
         image: ''
     });
 
-
     useEffect(() => {
+        GETDataOfCategories();
+    }, []);
+
+
+    const GETDataOfCategories = () => {
         fetch('http://localhost:9000/api/groceryItems/category/all', {
             method: "GET",
             headers: {
@@ -50,94 +41,130 @@ const AddItem = () => {
         }).then((response) => {
             return response.json();
         }).then((groceryCategories) => {
+            console.log("grocery Categories", groceryCategories);
             setCategories(groceryCategories);
         });
-    }, []);
+    }
 
-
-    useEffect(() => {
-        setItems(items);
-    }, [items]);
-
-    const handleCategorySubmit = () => {
-        fetch('http://localhost:9000/api/groceryItems/category', {
-            method: "POST",
+    const GETDataOfItemsInSelectedCategory = (categoryId) => {
+        fetch(`http://localhost:9000/api/groceryItems/category/${categoryId}`, {
+            method: "GET",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(categoryName),
         }).then((response) => {
             return response.json();
-        }).then((groceryCategory) => {
-            const addedCategories = [...categories];
-            addedCategories.push(groceryCategory);
-            setCategories(addedCategories);
+        }).then((items) => {
+            setGroceryItems(items);
         });
     }
 
     const handleClickCategory = (categoryId) => {
+        if (categoryId === "0") {
+            return;
+        }
         const CategoryId = { categoryId: categoryId };
         setSelectedCategoryId(CategoryId);
+        const foundCategoryName = categories.find((element) => {
+            return element._id === categoryId;
+        });
+        console.log("Choosen category name", foundCategoryName);
+        setUpdateCategoryName(foundCategoryName.name);
+        GETDataOfItemsInSelectedCategory(categoryId);
+    }
+
+    const handleChangeUpdateCategoryName = (e) => {
+        setUpdateCategoryName(e.target.value);
+    }
+
+    const handleCategorySubmit = () => {
+        const updateCategory = { name: updateCategoryName };
+        fetch(`http://localhost:9000/api/groceryItems/update-category/${selectedCategoryId.categoryId}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(updateCategory),
+        }).then((response) => {
+            console.log("responses", response);
+        })
+        GETDataOfCategories();
+    }
+
+    const handleClickItems = (itemName) => {
+        if (itemName === "Select") {
+            return;
+        }
+        const foundItemId = groceryItems.find((element) => {
+            return element.itemname === itemName;
+        });
+        const selectedItemNamePassing = {
+            itemname: itemName,
+            price: foundItemId.price,
+            noOfItems: foundItemId.noOfItems,
+            image: foundItemId.image,
+        };
+        setItems(selectedItemNamePassing);
+        
+        const ItemId = { _id: foundItemId._id };
+        setSelectedItemId(ItemId);
     }
 
     const handleChange = (e) => {
         const newItemState = { ...items, [e.target.name]: e.target.value };
         setItems(newItemState);
     }
+
     const handleItemSubmit = () => {
-        const completeItemDetails = { ...items, ...selectedCategoryId };
-        setGroceryItem(completeItemDetails);
-        fetch('http://localhost:9000/api/groceryItems/new-item', {
-            method: "POST",
+        fetch(`http://localhost:9000/api/groceryItems/update-item/${selectedItemId._id}`, {
+            method: "PATCH",
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(completeItemDetails),
+            body: JSON.stringify(items),
         }).then((response) => {
-        });
+            console.log("responses", response);
+        })
+        GETDataOfItemsInSelectedCategory(selectedCategoryId.categoryId);
     }
+
 
     return (
         <div className={classes.paper}>
             <Typography variant="h4" align="center" component="h1" gutterBottom>
-                Create </Typography>
+                Read </Typography>
             <Typography variant="h5" align="center" component="h2" gutterBottom>
-                Create new category/ item </Typography>
+                Read category names/ item details </Typography>
 
             <Paper style={{ padding: 16 }}>
                 <form onSubmit={handleCategorySubmit} noValidate>
                     <Typography variant="h6" align="center" component="h3" gutterBottom>
-                        Create New Category </Typography>
+                        Read Category Names </Typography>
                     <Grid container alignItems="flex-start" spacing={2}>
                         <Grid item xs={12}>
+                            <ListOfCategories categories={categories} handleClick={handleClickCategory} />
+                        </Grid>
+                        <Grid item xs={12}>
                             <TextField
-                             id="standard-start-adornment"
+                                id="standard-start-adornment"
                                 fullWidth
                                 required
                                 name="name"
-                                label="Enter Name Of Category:"
-                                onChange={(e) => { setCategoryName({ [e.target.name]: e.target.value }) }}
+                                label="Name Of Selected Category:"
+                                value={updateCategoryName}
+                                onChange={handleChangeUpdateCategoryName}
                             />
                         </Grid>
-                        <Grid item style={{ marginTop: 16 }}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                                 >
-                                Add category
-                            </Button>
-                        </Grid>
                     </Grid>
-                </form>
+                </form><br/>
                 <form onSubmit={handleItemSubmit} noValidate>
                     <Typography variant="h6" align="center" component="h3" gutterBottom>
-                    Create New Item </Typography>
-           
-            <Grid container alignItems="flex-start" spacing={2}>
-            <Grid item xs={12}>
-            <ListOfCategories categories={categories} handleClick={handleClickCategory} />
-            </Grid>
+                        Read Item Details Of Selected Category </Typography>
+
+                    <Grid container alignItems="flex-start" spacing={2}>
+                        <Grid item xs={12}>
+                            <ListOfItems groceryItems={groceryItems} handleClick={handleClickItems} />
+                        </Grid>
                         <Grid item xs={12}>
                             <TextField
                                 fullWidth
@@ -178,20 +205,11 @@ const AddItem = () => {
                                 onChange={handleChange}
                             />
                         </Grid>
-                        <Grid item style={{ marginTop: 16 }}>
-                            <Button
-                                variant="contained"
-                                color="primary"
-                                type="submit"
-                                >
-                                Add Item
-                            </Button>
-                        </Grid>
                     </Grid>
                 </form>
             </Paper>
-        </div >
+        </div>
     )
 }
 
-export { AddItem };
+export { ReadItem };

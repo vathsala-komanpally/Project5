@@ -90,7 +90,7 @@ const ItemsDisplay = (props) => {
                   <Button className={classes.addToCart} endIcon={<ShoppingCart />} onClick={() => handleAddToCartOnClick(itemDetails)}>
                     Add to Cart
                   </Button>
-               <AddToCart handleClose={handleClose} open={open} cartItems={props.cart} setCartItems={props.setCart}/>
+               <AddToCart handleClose={handleClose} open={open} cart={props.cart} setCart={props.setCart}/>
                 </CardContent>
               </CardActionArea>
             </Card>

@@ -13,10 +13,6 @@ import IconButton from '@material-ui/core/IconButton';
 import Divider from '@material-ui/core/Divider';
 
 const useStyles = makeStyles((theme) => ({
-  itemsContainer: {
-    paddingTop: theme.spacing(3),
-    paddingLeft: theme.spacing(30),
-  },
   itemTitle: {
     fontWeight: 800,
     paddingBottom: theme.spacing(3)
@@ -51,7 +47,7 @@ const Cart = (props) => {
   const handleDelete = (cartItem) => {
     const indxOfItemToDelete = props.cart.findIndex((itemToDelete => itemToDelete.itemname === cartItem.itemname));
     props.cart.splice(indxOfItemToDelete, 1);
-    setOpen(false);
+    setOpen(!open);
   }
 
   const handleMinus = (cartItem) => {
@@ -66,47 +62,45 @@ const Cart = (props) => {
   }
 
   return (
-      <Container maxWidth="lg" className={classes.itemsContainer}>
-        <Typography variant="h4" className={classes.itemTitle}>
-          Items added to the cart:
+    <Container maxWidth="lg">
+      <Typography variant="h4" className={classes.itemTitle}>
+        Items added to the cart:
       </Typography>
-        <Grid container spacing={3}>
-          {props.cart.map((itemDetails) => (
-            <Grid item xs={12} sm={6} md={4} key={itemDetails._id}>
-              <IconButton aria-label="close" onClick={() => handleDelete(itemDetails)}>
-                <Divider orientation="vertical" flexItem /> <CloseIcon /> <Divider orientation="vertical" flexItem />
-              </IconButton>
-              <Card className={classes.card}>
-                <CardActionArea >
-                  <CardMedia className={classes.media}
-                    image={itemDetails.image}
-                  />
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="h2">
-                      {itemDetails.itemname}
-                    </Typography>
-                    <Typography variant="body1" color="textSecondary" component="p">
-                      Price: ${itemDetails.price}.00<br />
+      <Grid container spacing={3}>
+        {props.cart.map((itemDetails) => (
+          <Grid item xs={12} sm={6} md={4} key={itemDetails._id}>
+            <IconButton aria-label="close" onClick={() => handleDelete(itemDetails)}>
+              <Divider orientation="vertical" flexItem /> <CloseIcon /> <Divider orientation="vertical" flexItem />
+            </IconButton>
+            <Card className={classes.card}>
+              <CardActionArea >
+                <CardMedia className={classes.media}
+                  image={itemDetails.image}
+                />
+                <CardContent>
+                  <Typography gutterBottom variant="h5" component="h2">
+                    {itemDetails.itemname}
+                  </Typography>
+                  <Typography variant="body1" color="textSecondary" component="p">
+                    Price: ${itemDetails.price}.00<br />
                     Quantity:{itemDetails.Quantity}
-                    </Typography>
-                    <Button className={classes.addToCart} size="large">
-
-                      <Button size="small" onClick={() => handlePlus(itemDetails)}> + </Button>
-                      {itemDetails.Quantity}
-                      <Button size="small" onClick={() => handleMinus(itemDetails)}> - </Button>
-                    </Button>
-
-                  </CardContent>
-                </CardActionArea>
-              </Card>
-            </Grid>
-          ))}
-          <Link to="/cart/checkout">
-            <Button size="large" style={{ paddingLeft: 50 }} onClick={handleCheckOutClick}>
-              CheckOut</Button>
-          </Link>
-        </Grid>
-      </Container>
+                  </Typography>
+                  <Button className={classes.addToCart} size="large">
+                    <Button size="small" onClick={() => handlePlus(itemDetails)}> + </Button>
+                    {itemDetails.Quantity}
+                    <Button size="small" onClick={() => handleMinus(itemDetails)}> - </Button>
+                  </Button>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
+        ))}
+        </Grid><br/>
+        <Link to="/cart/checkout">
+          <Button size="large" style={{ backgroundColor: "rgb(210, 86, 86)" }} onClick={handleCheckOutClick}>
+            CheckOut</Button>
+        </Link>
+    </Container>
   )
 }
 
