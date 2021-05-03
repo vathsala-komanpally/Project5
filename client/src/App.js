@@ -14,19 +14,37 @@ import { Contact } from './components/pages/Contact';
 import { AddItem } from "./components/admin/AddItem";
 import { UpdateItem } from "./components/admin/UpdateItem";
 import { DeleteItem } from "./components/admin/DeleteItem";
+import { makeStyles } from '@material-ui/core/styles';
+import { Container, Grid } from "@material-ui/core";
+const useStyles = makeStyles((theme) => ({
+  root: {
+    flexGrow: 1,
+    },
+  }));
 
 export const App = () => {
   const [cart, setCart] = useState([]);
-
+  const classes= useStyles();
   console.log("this page refresh");
   console.log("cart Items:", cart);
   return (
     <Router>
       <div className="App">
-        <AdminLoginBtn />
+      <Container maxWidth="lg">
+      <div className={classes.root}>
+      <Grid container spacing={3}>
+      {/* <Grid item xs={12}>
+      <AdminLoginBtn />
+        </Grid> */}
+        
+        <Grid item xs={12}>
         <NavBar cart={cart} />
-        <CategoriesNavBar />
+        </Grid>
+        <Grid item xs={2}>
+           <CategoriesNavBar />
+        </Grid>
         <Switch>
+        <Grid item xs={10}>
           <Route path="/shop/:id"><ItemsDisplay cart={cart} setCart={setCart} /></Route>
           <Route exact path="/admin" component={AdminLoginBtn}></Route>
           <Route path="/home" component={HomePage} ></Route>
@@ -38,7 +56,11 @@ export const App = () => {
           <Route path="/admin/CreateItem"><AddItem /></Route>
         <Route path="/admin/UpdateItem"><UpdateItem /></Route>
         <Route path="/admin/DeleteItem"><DeleteItem /></Route>
+        </Grid>
         </Switch>
+        </Grid>
+        </div>
+        </Container>
       </div>
     </Router>
 

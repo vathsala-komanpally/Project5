@@ -74,7 +74,7 @@ const ItemsDisplay = (props) => {
       </Typography>
       <Grid container spacing={3} className={classes.itemsContainer}>
         {itemsList.map((itemDetails) => (
-          <Grid item xs={3} key={itemDetails._id}>
+          <Grid item xs={4} key={itemDetails._id}>
             <Card className={classes.card}>
               <CardActionArea>
                 <CardMedia className={classes.media}

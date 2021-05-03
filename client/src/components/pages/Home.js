@@ -1,71 +1,28 @@
-import React, {useState} from 'react';
-import Carousel from 'react-bootstrap/Carousel'
-import Image2 from '../images/image2.png';
-import Image1 from '../images/image2.jpeg';
-import Image3 from '../images/image6.jpeg';
-import { makeStyles } from '@material-ui/core/styles';
+import React from 'react';
+import home from '../images/homepagepic.png';
+import motherday from '../images/mothersDayImage.jpeg';
+import clickcollect from '../images/clickCollectImage.jpeg';
+import weeklySpecials from '../images/weeklySpecials.png';
+import CardDeck from 'react-bootstrap/CardDeck';
+import Figure from 'react-bootstrap/Figure';
+import { HomePageImage } from './HomePageImage';
 
-const useStyles = makeStyles((theme) => ({
-    mainContent:{
-      paddingLeft: theme.spacing(34),
-      paddingTop: theme.spacing(1),
-    }
-  }));
 const HomePage = () => {
-  const [index, setIndex] = useState(0);
-  const classes = useStyles();
-
-  const handleSelect = (selectedIndex, e) => {
-    setIndex(selectedIndex);
-  };
   return (
-    <div className={classes.mainContent}>
-    <Carousel activeIndex={index} onSelect={handleSelect} >
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src={Image2}  style={{ height: 500 }} 
-          alt="First slide"
-        />
-        <Carousel.Caption >
-          <h2>Home:</h2>
-          <p>We’re dedicated to finding ways to help our customer’s money go further. That’s why we offer
-        affordable prices every day on a wide range of products, as well as weekly Specials, Prices Dropped
-        and Low Price Always, to help you get your money’s worth when you shop with us.
-        Every week, you'll find hundreds of new specials..</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src={Image3}  style={{height: 500 }} 
-          alt="Second slide"
-        />
+    <div>
+      <Figure>
+        <Figure.Image height='10' width='3000'
+          src={home} />
+        <Figure.Caption>
+          Welcome to Grocery Market </Figure.Caption>
+        </Figure>
 
-        <Carousel.Caption>
-          <h3>Shop Online</h3>
-          <p>Saves time and efforts. Shop from home, Wide variety products are available.
-           Get detailed information of the product online.</p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      <Carousel.Item>
-        <img
-          className="d-block w-100"
-          src={Image1}  style={{ height: 500 }} 
-          alt="Third slide"
-        />
-
-        <Carousel.Caption>
-          <h3>Don't miss big sale</h3>
-          <p>   Good discounts and lower prices.
-            
-          </p>
-        </Carousel.Caption>
-      </Carousel.Item>
-      </Carousel>
-      <h2>Welcome to Grocery Market</h2>
-  </div>
-    
+      <CardDeck>
+        <HomePageImage header={"Click and Collect"} text={"Looking for a faster way to shop? collect your groceries faster here you go!"} image={clickcollect} />
+        <HomePageImage header={"Shop Mother's Day Gifts Online"} text={"Looking for the perfect Mother's Day gift?You are at the right place"} image={motherday} />
+        <HomePageImage header={"Weekly Specials"} text={"Click here for our weekly specilas great prices online and instore on the everyday products you want"} image={weeklySpecials}/>
+      </CardDeck>
+    </div>
   )
 }
 

@@ -9,11 +9,7 @@ import { IconButton } from "@material-ui/core"
 import { Home } from "@material-ui/icons";
 import Badge from '@material-ui/core/Badge';
 
-
 const useStyles = makeStyles((theme) => ({
-    root: {
-        display: 'flex',
-      },
     appBar: {
         zIndex: theme.zIndex.drawer + 1,
         backgroundColor: "brown"
@@ -25,11 +21,6 @@ const useStyles = makeStyles((theme) => ({
     navDisplayFlex: {
         display: `flex`,
         justifyContent: `space-between`
-    },
-    linkText: {
-        textDecoration: `none`,
-        textTransform: `uppercase`,
-        color: `white`
     }
 }));
 
@@ -50,7 +41,7 @@ const NavBar = (props) => {
     }
 
     return (
-        <div className={classes.root}>
+        <div>
             <AppBar position="static" className={classes.appBar}>
                 <Toolbar>
                     <Container className={classes.navbarDisplayFlex}>
