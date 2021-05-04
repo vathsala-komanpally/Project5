@@ -4,6 +4,7 @@
 Installation - clone this repo and open in VS code 
 
 open terminal
+
 cd client ......> npm install ......> npm start 
 
 cd server ......> npm install ......> npm start 
@@ -20,7 +21,7 @@ Click on "AdminLogin" button displayed on top of the page.
    please use below credentials for admin sign in:
    
    "user name": vathsala
-   
+
    "password": vathsaladmin
 
    ![](client/WebPageImages/signinAdmin.png)
