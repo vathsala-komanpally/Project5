@@ -31,14 +31,15 @@ export const App = () => {
   console.log("this page refresh");
   console.log("cart Items:", cart);
   return (
+    <div className="App">
     <Router>
-      <div className="App">
+    
       <Container>
       <Grid container spacing={3}>
 
-       {/* <Grid item xs={12}>
+       <Grid item xs={12}>
       <AdminLoginBtn />
-        </Grid> */}
+        </Grid>
          
         <Grid item xs={12}>
         <NavBar cart={cart} />
@@ -66,8 +67,9 @@ export const App = () => {
         </Switch>
         </Grid>
         </Container>
-      </div>
+     
     </Router>
+    </div>
 
   );
 };
