@@ -33,8 +33,7 @@ export const App = () => {
   return (
     <Router>
       <div className="App">
-      <Container maxWidth="lg">
-      <div className={classes.root}>
+      <Container>
       <Grid container spacing={3}>
 
        {/* <Grid item xs={12}>
@@ -57,7 +56,7 @@ export const App = () => {
           <Route path="/catalogue" component={Catalogue} ></Route>
           <Route path="/reciepes" component={Reciepes}></Route>
           <Route path="/contact" component={Contact}></Route>
-          <Route path="/cart/checkout" component={CheckOut}></Route>
+          <Route path="/cart/checkout"><CheckOut cart={cart}/></Route>
           <Route path="/cart"><Cart cart={cart} /></Route>
           <Route path="/admin/CreateItem"><CreateItem /></Route>
           <Route path="/admin/ReadItem"><ReadItem /></Route>
@@ -66,7 +65,6 @@ export const App = () => {
         </Grid>
         </Switch>
         </Grid>
-        </div>
         </Container>
       </div>
     </Router>
