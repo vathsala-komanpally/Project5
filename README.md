@@ -1,5 +1,9 @@
 # GroceryMarket
 ### Technologies: React and MongoDB.
+## Project Plan
+ ![](client/WebPageImages/componentsFlow.png)
+
+ ![](client/WebPageImages/pageDesign.png)
 ## Project setup
 Installation - clone this repo and open in VS code 
 
