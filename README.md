@@ -3,6 +3,8 @@
 ## Project Plan
  ![](client/WebPageImages/componentsFlow.png)
 
+ * Page Design
+
  ![](client/WebPageImages/pageDesign.png)
 ## Project setup
 Installation - clone this repo and open in VS code 
