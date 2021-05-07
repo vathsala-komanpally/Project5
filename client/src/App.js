@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import { makeStyles } from '@material-ui/core/styles';
 import { Container, Grid } from "@material-ui/core";
 import { NavBar } from './components/userInterface/NavBar';
 import { CategoriesNavBar } from './components/userInterface/CategoriesNavBar';
@@ -19,15 +18,9 @@ import { ReadItem } from "./components/admin/ReadItem";
 import { UpdateItem } from "./components/admin/UpdateItem";
 import { DeleteItem } from "./components/admin/DeleteItem";
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    },
-  }));
-
 export const App = () => {
   const [cart, setCart] = useState([]);
-  const classes= useStyles();
+  
   console.log("this page refresh");
   console.log("cart Items:", cart);
   return (

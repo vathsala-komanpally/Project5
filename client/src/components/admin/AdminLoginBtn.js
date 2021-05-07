@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Button from "@material-ui/core/Button";
-import { BrowserRouter as Router, Link, Switch, Route, useHistory } from "react-router-dom";
+import { Link, Switch, Route, useHistory } from "react-router-dom";
 import { OperationsOfAdmin } from "./OperationsOfAdmin";
 import { SignIn } from '../user/SignIn';
 

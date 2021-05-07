@@ -38,14 +38,13 @@ const OperationsOfAdmin = () => {
     history.replace("/");
   }
   return (
-    <div>
       <Container component="main" maxWidth="md">
         <CssBaseline />
         <div className={classes.paper}>
           <Avatar src={AdminLogo} style={{ height: 80, width: 100 }} />
           <Typography component="h1" variant="h5">
             Welcome Admin</Typography>
-          <img src={CRUDLogo} style={{ height: 150, width: 350 }} />
+          <img src={CRUDLogo} style={{ height: 150, width: 350 }} alt="one" />
 
           <GridList className={classes.gridList}>
             <Card style={{ height: 250 }}>
@@ -93,12 +92,6 @@ const OperationsOfAdmin = () => {
           </GridList>
         </div>
       </Container>
-      {/* <Switch>
-        <Route path="/admin/CreateItem"><AddItem /></Route>
-        <Route path="/admin/UpdateItem"><UpdateItem /></Route>
-        <Route path="/admin/DeleteItem"><DeleteItem /></Route>
-      </Switch> */}
-    </div>
   )
 }
 

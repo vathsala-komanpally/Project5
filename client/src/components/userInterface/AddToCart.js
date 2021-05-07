@@ -112,11 +112,13 @@ const AddToCart = (props) => {
                   <Typography variant="body1" color="textSecondary" component="p">
                     Price: ${item.price}.00 </Typography>
                 </DialogContent>
-                <Button className={classes.button} size="large">
-                  <Button size="small" onClick={() => handlePlus(item)}> + </Button>
+                {/* <Button className={classes.button} size="large"> */}
+                  <div>
+                  <Button className={classes.button} size="small" onClick={() => handlePlus(item)}> + </Button>
                   {item.Quantity}
-                  <Button size="small" onClick={() => handleMinus(item)}> - </Button>
-                </Button>
+                  <Button className={classes.button} size="small" onClick={() => handleMinus(item)}> - </Button>
+                  </div>
+                {/* </Button> */}
                 <Button size="large" className={classes.button} endIcon={<DeleteIcon />} onClick={() => handleDelete(item)}>
                   Delete</Button>
               </Card>

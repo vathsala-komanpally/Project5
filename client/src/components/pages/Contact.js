@@ -1,10 +1,8 @@
 import React from "react";
-import Jumbotron from 'react-bootstrap/Jumbotron'
 import Container from 'react-bootstrap/Container';
   
 const Contact = () => {
   return (
-    <Jumbotron>
       <Container>
         <h1>Contact Us:</h1>
         <p>Adress: <br />
@@ -19,7 +17,6 @@ const Contact = () => {
         <br /> 
         <br /> 
         </Container>
-        </Jumbotron>
 
   );
 }
