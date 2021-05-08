@@ -34,15 +34,16 @@ export const App = () => {
       <AdminLoginBtn />
         </Grid>
          
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
         <NavBar cart={cart} />
         </Grid>
         <Grid item xs={2}>
            <CategoriesNavBar />
-        </Grid>
+        </Grid> */}
 
         <Switch>
         <Grid item xs={10}>
+        {/* <Route exact path="/" component={HomePage} ></Route> */}
           <Route path="/shop/:id"><ItemsDisplay cart={cart} setCart={setCart} /></Route>
           <Route exact path="/admin" component={AdminLoginBtn}></Route>
           <Route path="/home" component={HomePage} ></Route>

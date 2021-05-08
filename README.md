@@ -20,7 +20,26 @@ Automatically opens browser on http://localhost:3000/ Where u can see Grocery ma
 
 The Grocery market page will be display on screen: 
 
-1. To perform any CRUD functioning that means create,read,update and delete data.
+1. To shop items on grocery market 
+  goto http://localhost:3000/home
+ ![](client/WebPageImages/homeScreen.png)
+
+ * When user clicks on the category name on the side bar it shows list of all items in that category next to it.
+
+ * There is an option "Add to cart" next to each item, if user clicks on it, that item will be added to the cart.
+   ![](client/WebPageImages/addToCart.png)
+
+ * When user clicks on "Cart" it shows all items added to the cart. With checkout button on bottom.
+
+ *  Checkout looks like this
+![](client/WebPageImages/checkoutForm.png)
+
+* 
+![](client/WebPageImages/checkOut.png)
+
+
+ 
+2. To perform any CRUD functioning that means create,read,update and delete data.
 Click on "AdminLogin" button displayed on top of the page. 
 
  * Admin routes are protected
@@ -47,22 +66,3 @@ Click on "AdminLogin" button displayed on top of the page.
  
  *  "delete" allows admin to delete categories as well as items 
  ![](client/WebPageImages/deleteData.png)
-
-2. To shop items on grocery market 
-  goto http://localhost:3000/home
- ![](client/WebPageImages/homeScreen.png)
-
- * When user clicks on the category name on the side bar it shows list of all items in that category next to it.
-
- * There is an option "Add to cart" next to each item, if user clicks on it, that item will be added to the cart.
-   ![](client/WebPageImages/addToCart.png)
-
- * When user clicks on "Cart" it shows all items added to the cart. With checkout button on bottom.
-
- *  Checkout looks like this
-![](client/WebPageImages/checkoutForm.png)
-
-* 
-![](client/WebPageImages/checkOut.png)
-
-
